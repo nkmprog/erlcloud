@@ -1126,10 +1126,10 @@ describe_instance_status(Params, Filter, Config) ->
 
 -spec(define_instance_spec/4 :: (string(), string(), string(), string()) -> ec2_instance_spec()).
 define_instance_spec(ImageId, SSHKeyName, InstanceType, AvailabilityZone) ->
-    #ec2_instance_spec(image_id = ImageId,
+    #ec2_instance_spec{image_id = ImageId,
 		       key_name = SSHKeyName,
 		       instance_type = InstanceType,
-		       availability_zone = AvailabilityZone).
+		       availability_zone = AvailabilityZone}.
 
 extract_instance_status(Node) ->
     %% XXX: abbreviated.
