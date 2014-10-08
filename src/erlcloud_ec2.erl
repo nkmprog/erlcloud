@@ -63,7 +63,8 @@
          stop_instances/1, stop_instances/2, stop_instances/3,
          terminate_instances/1, terminate_instances/2,
          describe_instance_status/1, describe_instance_status/2,
-         describe_instance_status/3,
+         describe_instance_status/3, 
+	 define_instance_spec/4,
 
          %% Key Pairs
          create_key_pair/1, create_key_pair/2,
@@ -1122,6 +1123,13 @@ describe_instance_status(Params, Filter, Config) ->
                     AllParams, ?NEW_API_VERSION),
     Path = "/DescribeInstanceStatusResponse/instanceStatusSet/item",
     [ extract_instance_status(Item) || Item <- xmerl_xpath:string(Path, Doc) ].
+
+-spec(define_instance_spec/4 :: (string(), string(), string(), string()) -> ec2_instance_spec()).
+define_instance_spec(ImageId, SSHKeyName, InstanceType, AvailabilityZone) ->
+    #ec2_instance_spec(image_id = ImageId,
+		       key_name = SSHKeyName,
+		       instance_type = InstanceType,
+		       availability_zone = AvailabilityZone).
 
 extract_instance_status(Node) ->
     %% XXX: abbreviated.
